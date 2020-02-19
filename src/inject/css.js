@@ -1,36 +1,88 @@
-/**
- * Created by Zhongyi on 2/23/16.
- */
 'use strict';
+
 const Common = require('../common');
 
 class CSSInjector {
 }
 
 CSSInjector.commonCSS = `
-    div.header, div.title_wrap {
+    .emoji{
+      margin:0 2px;
+    }
+    .login{
+      -webkit-app-region: drag;
+    }
+    .action{
+      -webkit-app-region: no-drag;
+      cursor: pointer!important;
+    }
+    div.header{
+      padding:0px 18px 18px 18px;
+    }
+    div .header #miniFrame{
+      height:30px;
+      display: inline-block;
+      -webkit-app-region: no-drag;
+      position: absolute;
+    }
+    div .header #miniFrame:hover>div{
+      top:0;
+    }
+    div .header #miniFrame div{
+      position:relative;
+      height:30px;
+      top:-30px;
+      transition:top 0.1s;
+      display:inline-block;
+    }
+    div .header #miniFrame img{
+      float:left;
+      width:20px;
+      height:20px;
+      margin:5px 5px 0 0;
+      -webkit-app-region: no-drag;
+    }
+    div .header #miniFrame img:hover{
+      background-color: rgba(255,255,255,0.1);
+      box-shadow: 0px 0px 10px #888888;
+    }
+    div.download_entry{
+      display:none;
+    }
+    div.box_hd .title_wrap{
+      z-index:1000;
+    }
+    div.box_hd {
         -webkit-app-region: drag;
+    }
+    div.box_hd .ext{
+      -webkit-app-region: no-drag;
+    }
+    div.panel.give_me .nav_view{
+      top:166px;
     }
     div.title.poi {
         -webkit-app-region: no-drag;
     }
     div.header .avatar, div.header .info {
         -webkit-app-region: no-drag;
+        padding-top:30px;
     }
     div.main {
-      height: 100% !important;
-      min-height: 0 !important;
-      padding-top: 0 !important;
+      height: 100%;
+      min-height: 0;
+      padding-top: 0;
     }
     div.main_inner {
-      max-width: none !important;
-      min-width: 0 !important;
+      max-width: none;
+      min-width: 0;
+      border-radius:0;
     }
     div.message_empty {
       margin-top: 50px;
     }
     div.img_preview_container div.img_opr_container {
-      bottom: 50px !important;
+      bottom: 50px;
     }
     p.copyright {
       display: none !important
@@ -46,6 +98,9 @@ CSSInjector.commonCSS = `
     pre, input {
       -webkit-user-select: initial;
       cursor: initial !important;
+    }
+    .js_message_plain{
+      user-select: text;
     }
     html, body {
       width: 100%;
@@ -68,6 +123,9 @@ CSSInjector.commonCSS = `
       height: 100%;
       overflow: hidden;
     }
+    .login_box .refresh_qrcode_mask{
+      -webkit-app-region: no-drag;
+    }
     div.lang, div.copyright {
       display: none !important
     }
@@ -86,7 +144,6 @@ CSSInjector.commonCSS = `
       background: #eeeeee;
     }
     div#userSelectionBox select {
-      width: 120px;
       border: none;
       outline: none;
       height: inherit;
@@ -109,6 +166,47 @@ CSSInjector.commonCSS = `
       width: 20px;
       height: 20px;
     }
+    div.jp-jplayer{
+      overflow-y:hidden;
+    }
+    div.jp-jplayer video{
+      background-color: #eee;
+    }
+    div.ngdialog-close{
+      -webkit-app-region: no-drag;
+      cursor: pointer!important;
+    }
+    div.ngdialog-close:hover{
+      background-color: rgba(255,255,255,0.1);
+      box-shadow: 0px 0px 10px #888888;
+    }
+    .dropdown_menu{
+      -webkit-app-region: no-drag;
+    }
+    .box_hd .ext{
+      -webkit-app-region: no-drag;
+    }
+    .login_box .association .button.button_primary{
+      -webkit-app-region: no-drag;
+    }
+    .login_box .association .button.button_default{
+      -webkit-app-region: no-drag;
+    }
+    .bubble_cont a{
+      user-select: text;
+    }
+    .bubble_cont .video img{
+      max-width: 200px;
+      max-height: 300px;
+      height: auto!important;
+      width: auto!important;
+    }
+    .box_ft>.content{
+      height: calc(100% - 90px);
+    }
+    .box_ft>.content>.edit_area{
+      height:100%!important;
+    }
     @media (max-width: 512px) {
       .panel {
         width: 75px !important;
@@ -130,6 +228,12 @@ CSSInjector.commonCSS = `
       }
       .chat_item.active {
         border-left: 2px solid #02b300 !important
+      }
+      .action .desc {
+        display: none;
+      }
+      .action .btn_send {
+        width: 30px;
       }
     }
   `;

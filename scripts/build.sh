@@ -25,9 +25,9 @@ else
     APP_NAME="Electronic WeChat"
 fi
 
-ignore_list="dist|scripts|\.idea|.*\.md|.*\.yml|node_modules/nodejieba"
+ignore_list="dist|scripts|\.idea|.*\.md|.*\.yml|node_modules/nodejieba|install"
 
-electron-packager . "${APP_NAME}" --platform=$PLATFORM --arch=$ARCH --electronVersion=1.4.15 --app-version=1.4.0 --asar --icon=assets/icon.icns --overwrite --out=./dist --ignore=${ignore_list}
+electron-packager . "${APP_NAME}" --platform=$PLATFORM --arch=$ARCH --electronVersion=7.1.5 --app-version=2.3.1 --asar --icon=assets/icon.icns --overwrite --out=./dist --ignore=${ignore_list}
 
 if [ $? -eq 0 ]; then
   echo -e "$(tput setaf 2)Packaging for $PLATFORM $ARCH succeeded.$(tput sgr0)\n"
@@ -37,3 +37,7 @@ if [ $PLATFORM = "darwin" ]; then
     ditto -rsrcFork ./dist/Electronic\ WeChat-darwin-x64/Electronic\ WeChat.app /Applications/Electronic\ WeChat.app
     echo "$(tput setaf 3)App copied to /Applications. You can open Electronic WeChat there or from Spotlight.$(tput sgr0)"
 fi
+
+cp ./electronic-wechat.desktop ./dist/electronic-wechat-linux-x64/
+mkdir ./dist/electronic-wechat-linux-x64/assets
+cp ./assets/icon.png ./dist/electronic-wechat-linux-x64/assets/icon.png

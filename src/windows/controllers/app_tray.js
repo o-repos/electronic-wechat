@@ -1,29 +1,21 @@
-/**
- * Created by Zhongyi on 5/2/16.
- */
-
 'use strict';
 
 const path = require('path');
-const { app, Menu, nativeImage, Tray, ipcMain } = require('electron');
+const {
+  app, Menu, nativeImage, Tray, ipcMain,
+} = require('electron');
 
 const AppConfig = require('../../configuration');
 
-const lan = AppConfig.readSettings('language');
-
 const assetsPath = path.join(__dirname, '../../../assets');
 
-let Common;
-if (lan === 'zh-CN') {
-  Common = require('../../common_cn');
-} else {
-  Common = require('../../common');
-}
+const Common = require('../../common');
 
 class AppTray {
-  constructor(splashWindow, wechatWindow) {
+  constructor(splashWindow, wechatWindow, settingsWindow) {
     this.splashWindow = splashWindow;
     this.wechatWindow = wechatWindow;
+    this.settingsWindow = settingsWindow;
     this.lastUnreadStat = 0;
     const trayColor = AppConfig.readSettings('tray-color');
     if (trayColor === 'white' || trayColor === 'black') {
@@ -37,6 +29,7 @@ class AppTray {
 
   createTray() {
     let image;
+    let tray = null;
     if (process.platform === 'linux' || process.platform === 'win32') {
       image = nativeImage.createFromPath(path.join(assetsPath, `tray_${this.trayColor}.png`));
       this.trayIcon = image;
@@ -44,17 +37,18 @@ class AppTray {
     } else {
       image = nativeImage.createFromPath(path.join(assetsPath, 'status_bar.png'));
     }
-    image.setTemplateImage(true);
 
-    this.tray = new Tray(image);
+    tray = new Tray(image);
+    this.tray = tray;
     this.tray.setToolTip(Common.ELECTRONIC_WECHAT);
 
     ipcMain.on('refreshIcon', () => this.refreshIcon());
 
     if (process.platform === 'linux' || process.platform === 'win32') {
       const contextMenu = Menu.buildFromTemplate([
-        { label: 'Show', click: () => this.hideSplashAndShowWeChat() },
-        { label: 'Exit', click: () => app.exit(0) },
+        { label: Common.TRAY.show, icon: path.join(__dirname, '../../../assets/tray_icon.png'), click: () => this.hideSplashAndShowWeChat() },
+        { label: Common.TRAY.pref, icon: path.join(__dirname, `../../../assets/tray_settings_${this.trayColor}.png`), click: () => this.showSettings() },
+        { label: Common.TRAY.exit, icon: path.join(__dirname, `../../../assets/tray_exit_${this.trayColor}.png`), click: () => this.appExit() },
       ]);
       this.tray.setContextMenu(contextMenu);
     }
@@ -70,6 +64,14 @@ class AppTray {
     this.wechatWindow.show();
   }
 
+  showSettings() {
+    this.settingsWindow.show();
+  }
+
+  appExit() {
+    this.wechatWindow.exit();
+  }
+
   refreshIcon() {
     this.trayColor = AppConfig.readSettings('tray-color');
     this.trayIcon = nativeImage.createFromPath(path.join(assetsPath, `tray_${this.trayColor}.png`));
@@ -79,6 +81,12 @@ class AppTray {
     } else {
       this.tray.setImage(this.trayIconUnread);
     }
+    const contextMenu = Menu.buildFromTemplate([
+      { label: Common.TRAY.show, icon: path.join(__dirname, '../../../assets/tray_icon.png'), click: () => this.hideSplashAndShowWeChat() },
+      { label: Common.TRAY.pref, icon: path.join(__dirname, `../../../assets/tray_settings_${this.trayColor}.png`), click: () => this.showSettings() },
+      { label: Common.TRAY.exit, icon: path.join(__dirname, `../../../assets/tray_exit_${this.trayColor}.png`), click: () => this.appExit() },
+    ]);
+    this.tray.setContextMenu(contextMenu);
   }
 
   setUnreadStat(stat) {

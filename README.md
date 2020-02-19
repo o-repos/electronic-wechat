@@ -2,8 +2,10 @@
 
 # Electronic WeChat
 
-*A better WeChat on macOS and Linux. Built with [Electron](https://github.com/atom/electron).*
+[![Build Status](https://travis-ci.org/palytoxin/electronic-wechat.svg?branch=master)](https://travis-ci.org/palytoxin/electronic-wechat)
 
+> Note from geeeeeeeeek
+>
 > **⚠️⚠️ NO LONGER IN ACTIVE DEVELOPMENT | 项目不再维护 ⚠️⚠️** 
 > 
 > Thanks for supporting this project for **1000** days since Feb 16, 2016. 
@@ -49,57 +51,48 @@
 
 **Important:** If you want to build the app by yourself rather than download the release directly, please consider to use the source code from [the production branch](https://github.com/geeeeeeeeek/electronic-wechat/tree/production), the master branch is under development and we cannot guarantee it to be stable.
 
-[![Gitter](https://badges.gitter.im/geeeeeeeeek/electronic-wechat.svg)](https://gitter.im/geeeeeeeeek/electronic-wechat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
-[![Build Status](https://travis-ci.org/geeeeeeeeek/electronic-wechat.svg?branch=master)](https://travis-ci.org/geeeeeeeeek/electronic-wechat)
-[![Build Status](https://img.shields.io/github/stars/geeeeeeeeek/electronic-wechat.svg)](https://github.com/geeeeeeeeek/electronic-wechat)
-[![Build Status](https://img.shields.io/github/forks/geeeeeeeeek/electronic-wechat.svg)](https://github.com/geeeeeeeeek/electronic-wechat)
-[![Build Status](https://img.shields.io/badge/README-切换语言-yellow.svg)](README_zh.md)
+**Linux 下的微信客户端. 使用[Electron](https://github.com/atom/electron)构建.**
 
-![qq20160428-0 2x](https://cloud.githubusercontent.com/assets/7262715/14876747/ff691ade-0d49-11e6-8435-cb1fac91b3c2.png)
+# 感谢
 
-## Features ([CHANGELOG](CHANGELOG.md))
+感谢 [kooritea](https://github.com/kooritea/electronic-wechat) 和 [geeeeeeeeek](https://github.com/geeeeeeeeek/electronic-wechat)
 
-- **Modern UI and all features from Web WeChat.**
-- **Block message recall.**
-- **Stickers showing support.** [[?]](https://github.com/geeeeeeeeek/electronic-wechat/issues/2)
-- Share subscribed passages on Weibo, Qzone, Facebook, Twitter, Evernote, and email.
-- Mention users in a group chat.
-- Drag and drop to send photos.
-- Behaves like a native app, based on dozens of optimization.
-- Removes URL link redirects and takes you directly to blocked websites (e.g. taobao.com).
+## 更新记录
 
-## How To Use
+--- 2019-12-17 ---
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](https://www.npmjs.com/)) installed on your computer. From your command line:
+> Electron 更新到了v7.1.5，以及部分依赖
+
+### 部分更新记录
+请查看[kooritea](https://github.com/kooritea/electronic-wechat)维护的版本
+
+#### [下载构建好的应用](https://github.com/palytoxin/electronic-wechat/releases)
+
+## 如何使用
+
+在下载和运行这个项目之前，你需要在电脑上安装 [Git](https://git-scm.com) 和 [Node.js](https://nodejs.org/en/download/) (来自 [npm](https://www.npmjs.com/))。在命令行中输入:
 
 ``` bash
-# Clone this repository
-git clone https://github.com/geeeeeeeeek/electronic-wechat.git
-# Go into the repository
+# 下载仓库
+git clone https://github.com/palytoxin/electronic-wechat.git
+# 进入仓库
 cd electronic-wechat
-# Install dependencies and run the app
+# 安装依赖, 运行应用
 npm install && npm start
 ```
 
-To pack into an app, simply type one of these:
+**提示:** 如果 `npm install` 下载缓慢，你可以使用自定义环境变量。
+
+`ELECTRON_MIRROR="https://cdn.npm.taobao.org/dist/electron/" npm install`
+
+根据你的平台打包应用:
 
 ``` shell
 npm run build:osx
 npm run build:linux
-npm run build:win32
-npm run build:win64
+npm run build:win
 ```
 
-**New:** Install with your familiar package manager. Check out [images maintained by the community](https://github.com/geeeeeeeeek/electronic-wechat/wiki/System-Support-Matrix#%E7%A4%BE%E5%8C%BA%E8%B4%A1%E7%8C%AE%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85)!
+#### 项目使用 [MIT](LICENSE.md) 许可
 
-**New:** Or, with homebrew!
-
-```bash
-brew cask install electronic-wechat
-```
-
-#### [Download Released App](https://github.com/geeeeeeeeek/electronic-wechat/releases)
-
-#### License [MIT](LICENSE.md)
-
-*Electronic WeChat* is released by this open source project. While Web WeChat is a major component  in the app, it should be noted that this is a community release and not an official WeChat release.
+*Electronic WeChat* 是这个开源项目发布的产品。网页版微信是其中重要的一部分，但请注意这是一个社区发布的产品，而 *不是* 官方微信团队发布的产品。

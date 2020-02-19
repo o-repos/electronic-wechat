@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+
 'use strict';
 
 const { remote, shell, ipcRenderer } = require('electron');
@@ -5,13 +7,7 @@ const AppConfig = require('../configuration');
 
 const { Menu, app } = remote;
 
-const lan = AppConfig.readSettings('language');
-let Common;
-if (lan === 'zh-CN') {
-  Common = require('../common_cn');
-} else {
-  Common = require('../common');
-}
+const Common = require('../common');
 
 class MenuHandler {
   create() {
@@ -239,10 +235,17 @@ class MenuHandler {
             click: MenuHandler._github,
           },
           {
+            label: Common.MENU.repo_fork,
+            click: MenuHandler._forkerGithub,
+          },
+          {
             type: 'separator',
           }, {
             label: Common.MENU.feedback,
             click: MenuHandler._githubIssues,
+          }, {
+            label: Common.MENU.feedback_forker,
+            click: MenuHandler._forkerGithubIssues,
           }, {
             label: Common.MENU.checkRelease,
             click: MenuHandler._update,
@@ -252,13 +255,13 @@ class MenuHandler {
 
     if (platform === 'darwin') {
       return darwinTemplate;
-    } else if (platform === 'linux') {
+    } if (platform === 'linux') {
       return linuxTemplate;
     }
   }
 
   static _quitApp() {
-    app.exit(0);
+    ipcRenderer.send('exit');
   }
 
   static _reload() {
@@ -273,8 +276,16 @@ class MenuHandler {
     shell.openExternal(Common.GITHUB);
   }
 
+  static _forkerGithub() {
+    shell.openExternal(Common.FORKER_GITHUB);
+  }
+
   static _githubIssues() {
     shell.openExternal(Common.GITHUB_ISSUES);
+  }
+
+  static _forkerGithubIssues() {
+    shell.openExternal(Common.FORKER_GITHUB_ISSUES);
   }
 
   static _update() {
